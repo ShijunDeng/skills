@@ -1,0 +1,16 @@
+{
+  "_comment": "Email skill configuration - Copy this file to email-config.json",
+  "_comment_security": "Add email-config.json to .gitignore to protect credentials",
+
+  "smtp_host": "",
+  "smtp_port": 465,
+  "smtp_use_ssl": true,
+
+  "sender_email": "",
+  "sender_password": "",
+  "sender_display_name": "",
+
+  "default_to": [],
+  "default_cc": [],
+  "default_bcc": []
+}
