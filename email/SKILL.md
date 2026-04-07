@@ -89,7 +89,7 @@ output: "发送结果 + 配置更新状态"
 | 字段 | 默认值 | 说明 |
 |------|--------|------|
 | `smtp_host` | `smtpscn.huawei.com` | SMTP 服务器地址 |
-| `smtp_port` | `25` | 端口（SSL: 465, STARTTLS: 587） |
+| `smtp_port` | `25` | 端口 |
 | `smtp_use_ssl` | `true` | 是否 SSL 连接 |
 
 ### 检查流程
@@ -113,20 +113,14 @@ output: "发送结果 + 配置更新状态"
 
 缺失: {missing_fields}
 
-常用 SMTP 配置：
-| 邮箱       | smtp_host          | port | SSL  |
-|-----------|-------------------|------|------|
-| Gmail     | smtp.gmail.com    | 465  | true |
-| Outlook   | smtp-mail.outlook.com | 587 | false |
-| QQ邮箱    | smtp.qq.com       | 465  | true |
-| 163邮箱   | smtp.163.com      | 465  | true |
-
 请提供：
-1. SMTP 服务器地址
-2. 端口号
-3. 是否使用 SSL（是/否）
-4. 发件人邮箱
-5. 密码（建议使用应用专用密码）
+1. 发件人邮箱
+2. 密码（建议使用应用专用密码）
+
+如需自定义 SMTP 服务器，可额外提供：
+- SMTP 服务器地址（默认: smtpscn.huawei.com）
+- 端口号（默认: 25）
+- 是否使用 SSL（默认: 是）
 ```
 
 用户回复后，将配置写入文件，然后继续流程。
