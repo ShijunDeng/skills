@@ -45,15 +45,18 @@ def validate_email_format(email):
     return re.match(pattern, email.strip()) is not None
 
 
+# Default SMTP config
+DEFAULT_SMTP_HOST = "smtpscn.huawei.com"
+DEFAULT_SMTP_PORT = 25
+
+
 def validate_required_config(config):
     """Check required SMTP config fields. Return list of missing fields."""
-    required = ["smtp_host", "smtp_port", "sender_email", "sender_password"]
+    required = ["sender_email", "sender_password"]
     missing = []
     for field in required:
         value = config.get(field)
         if not value:
-            missing.append(field)
-        elif field == "smtp_port" and not isinstance(value, int):
             missing.append(field)
     return missing
 
@@ -111,9 +114,11 @@ def send_email(config, subject, body, to_list, cc_list=None, bcc_list=None, is_h
             "error_type": "validation"
         }
 
-    # Get config values
-    smtp_host = config["smtp_host"]
-    smtp_port = config["smtp_port"]
+    # Get config values (smtp_host and smtp_port have defaults)
+    smtp_host = config.get("smtp_host") or DEFAULT_SMTP_HOST
+    smtp_port = config.get("smtp_port", DEFAULT_SMTP_PORT)
+    if not isinstance(smtp_port, int):
+        smtp_port = DEFAULT_SMTP_PORT
     use_ssl = config.get("smtp_use_ssl", True)
     sender_email = config["sender_email"]
     sender_password = config["sender_password"]
@@ -204,7 +209,7 @@ def get_config_status(config_path):
         return {
             "exists": False,
             "valid": False,
-            "missing_fields": ["smtp_host", "smtp_port", "sender_email", "sender_password"]
+            "missing_fields": ["sender_email", "sender_password"]
         }
 
     missing = validate_required_config(config)

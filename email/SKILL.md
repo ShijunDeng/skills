@@ -1,7 +1,7 @@
 ---
 name: email
 description: >
-  邶件发送 Skill。支持两种内容来源：用户直接输入或转发对话中的模型输出。
+  邮件发送 Skill。支持两种内容来源：用户直接输入或转发对话中的模型输出。
   配置驱动：SMTP 认证持久化，收件人自动记忆，发送前强制确认。
   零外部依赖：仅使用 Python 标准库（smtplib + email）。
   Use when: 用户要求发送邮件、转发对话内容、邮件通知。
@@ -17,7 +17,7 @@ triggers:
 output: "发送结果 + 配置更新状态"
 ---
 
-# Email — 邶件发送
+# Email — 邮件发送
 
 > 零外部依赖，配置驱动，发送前强制确认。
 
@@ -61,7 +61,7 @@ output: "发送结果 + 配置更新状态"
 提取后展示预览：
 
 ```
-📧 邶件内容已准备：
+📧 邮件内容已准备：
 
 主题: {subject}
 正文预览: {body前80字符}...
@@ -81,11 +81,16 @@ output: "发送结果 + 配置更新状态"
 
 | 字段 | 说明 |
 |------|------|
-| `smtp_host` | SMTP 服务器地址 |
-| `smtp_port` | 端口（SSL: 465, STARTTLS: 587） |
-| `smtp_use_ssl` | 是否 SSL 连接 |
 | `sender_email` | 发件人邮箱 |
 | `sender_password` | 密码/授权码 |
+
+### 可选字段（有默认值）
+
+| 字段 | 默认值 | 说明 |
+|------|--------|------|
+| `smtp_host` | `smtpscn.huawei.com` | SMTP 服务器地址 |
+| `smtp_port` | `25` | 端口（SSL: 465, STARTTLS: 587） |
+| `smtp_use_ssl` | `true` | 是否 SSL 连接 |
 
 ### 检查流程
 
@@ -104,7 +109,7 @@ output: "发送结果 + 配置更新状态"
 当配置缺失时：
 
 ```
-⚠️ 邶件配置不完整，请提供以下信息：
+⚠️ 邮件配置不完整，请提供以下信息：
 
 缺失: {missing_fields}
 
@@ -165,7 +170,7 @@ Bcc: {bcc_list 或 "无"}
 
 ```
 ═══════════════════════════════════════
-📧 邶件发送确认
+📧 邮件发送确认
 ═══════════════════════════════════════
 
 发件人: {sender_display_name 或 sender_email}
@@ -220,7 +225,7 @@ python refs/email-sender.py \
 ### 成功响应
 
 ```
-✅ 邶件发送成功！
+✅ 邮件发送成功！
 
 发件人: {sender_email}
 收件人: {to_list}
@@ -235,10 +240,10 @@ python refs/email-sender.py \
 
 ```json
 {
-  "smtp_host": "smtp.gmail.com",
-  "smtp_port": 465,
+  "smtp_host": "smtpscn.huawei.com",
+  "smtp_port": 25,
   "smtp_use_ssl": true,
-  "sender_email": "user@gmail.com",
+  "sender_email": "user@example.com",
   "sender_password": "app-specific-password",
   "sender_display_name": "Your Name",
   "default_to": ["recipient@example.com"],
